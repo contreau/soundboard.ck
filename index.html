@@ -25,7 +25,8 @@
 
       body {
         background-color: #acacac;
-        background: url("/sky.jpg");
+        background: url("/sunset.jpg");
+
         color: #000000;
         font-family: Arial;
         min-height: 100dvh;
@@ -81,6 +82,12 @@
       @media (max-width: 300px) {
         #button-grid {
           grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 500px) {
+        body {
+          background-position: center;
         }
       }
     </style>

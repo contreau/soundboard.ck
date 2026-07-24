@@ -17,6 +17,6 @@ function watchJsonPlugin() {
 }
 
 export default defineConfig({
-  base: "/",
+  base: "/soundboard.ck/",
   plugins: [watchJsonPlugin()],
 });

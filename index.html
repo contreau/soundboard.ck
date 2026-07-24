@@ -2,7 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" viewport-fit="cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="title" content="Soundboard.CK" />
+    <meta property="og:title" content="Soundboard.CK" />
+    <meta name="description" content="A CK-ahh soundboard." />
+    <meta property="og:description" content="A CK-ahh soundboard." />
+    <meta name="keywords" content="soundboard, funny, meme" />
+    <meta property="og:url" content="https://contreau.github.io/soundboard.ck/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/soundboard.ck/favicon/apple-touch-icon.png" />
+    <meta name="language" content="English" />
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" sizes="180x180" href="/soundboard.ck/favicon/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/soundboard.ck/favicon/favicon-32x32.png" />
@@ -24,9 +35,8 @@
       }
 
       body {
-        background-color: #acacac;
+        background-color: #63708a;
         background: url("/soundboard.ck/sunset.jpg");
-
         color: #000000;
         font-family: Arial;
         min-height: 100dvh;
@@ -88,6 +98,12 @@
       @media (max-width: 500px) {
         body {
           background-position: center;
+        }
+      }
+
+      @media (min-width: 1530px) {
+        body {
+          background-size: 100%;
         }
       }
     </style>

@@ -1,0 +1,43 @@
+[
+  {
+    "fileName": "sounds/crickets.mp3",
+    "displayName": "Crickets"
+  },
+  {
+    "fileName": "sounds/clown-horn.mp3",
+    "displayName": "Clown Horn"
+  },
+  {
+    "fileName": "sounds/cucaracha.mp3",
+    "displayName": "La Cucaracha"
+  },
+  {
+    "fileName": "sounds/charge.mp3",
+    "displayName": "Charge"
+  },
+  {
+    "fileName": "sounds/slide-whistle.mp3",
+    "displayName": "Slide Whistle"
+  },
+  {
+    "fileName": "sounds/tiptoe.mp3",
+    "displayName": "Tip-toe"
+  },
+  {
+    "fileName": "sounds/tom-scream.mp3",
+    "displayName": "Tom & Jerry Scream"
+  },
+  {
+    "fileName": "sounds/lego-yoda.mp3",
+    "displayName": "Lego Yoda"
+  },
+
+  {
+    "fileName": "sounds/faaah.mp3",
+    "displayName": "FAAAH"
+  },
+  {
+    "fileName": "sounds/fried-rice.mp3",
+    "displayName": "Fried Rice"
+  }
+]

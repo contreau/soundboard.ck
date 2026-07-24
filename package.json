@@ -1,0 +1,24 @@
+{
+  "name": "soundboard.ck",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "rm -rf dist && vite build",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "gh-pages": "^6.3.0",
+    "vite": "^8.1.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "98.css": "^0.1.21"
+  }
+}

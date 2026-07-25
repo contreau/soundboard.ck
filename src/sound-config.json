@@ -39,5 +39,13 @@
   {
     "fileName": "sounds/fried-rice.mp3",
     "displayName": "Fried Rice"
+  },
+  {
+    "fileName": "sounds/laugh-track.mp3",
+    "displayName": "Laugh Track"
+  },
+  {
+    "fileName": "sounds/scooby-laugh.mp3",
+    "displayName": "Scooby"
   }
 ]

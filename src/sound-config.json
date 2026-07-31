@@ -1,19 +1,43 @@
 [
   {
-    "fileName": "sounds/crickets.mp3",
-    "displayName": "Crickets"
+    "fileName": "sounds/bruh.mp3",
+    "displayName": "Bruh"
+  },
+  {
+    "fileName": "sounds/charge.mp3",
+    "displayName": "Charge"
   },
   {
     "fileName": "sounds/clown-horn.mp3",
     "displayName": "Clown Horn"
   },
   {
+    "fileName": "sounds/crickets.mp3",
+    "displayName": "Crickets"
+  },
+  {
+    "fileName": "sounds/faaah.mp3",
+    "displayName": "FAAAH"
+  },
+  {
+    "fileName": "sounds/fried-rice.mp3",
+    "displayName": "Fried Rice"
+  },
+  {
     "fileName": "sounds/cucaracha.mp3",
     "displayName": "La Cucaracha"
   },
   {
-    "fileName": "sounds/charge.mp3",
-    "displayName": "Charge"
+    "fileName": "sounds/laugh-track.mp3",
+    "displayName": "Laugh Track"
+  },
+  {
+    "fileName": "sounds/lego-yoda.mp3",
+    "displayName": "Lego Yoda"
+  },
+  {
+    "fileName": "sounds/scooby-laugh.mp3",
+    "displayName": "Scooby"
   },
   {
     "fileName": "sounds/slide-whistle.mp3",
@@ -28,24 +52,7 @@
     "displayName": "Tom & Jerry Scream"
   },
   {
-    "fileName": "sounds/lego-yoda.mp3",
-    "displayName": "Lego Yoda"
-  },
-
-  {
-    "fileName": "sounds/faaah.mp3",
-    "displayName": "FAAAH"
-  },
-  {
-    "fileName": "sounds/fried-rice.mp3",
-    "displayName": "Fried Rice"
-  },
-  {
-    "fileName": "sounds/laugh-track.mp3",
-    "displayName": "Laugh Track"
-  },
-  {
-    "fileName": "sounds/scooby-laugh.mp3",
-    "displayName": "Scooby"
+    "fileName": "sounds/violin.mp3",
+    "displayName": "Violin Stretch"
   }
 ]

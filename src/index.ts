@@ -1,15 +1,60 @@
 import data from "./sound-config.json";
 
-interface soundDetails {
+interface SoundDetails {
   fileName: string;
   displayName: string;
 }
 
-const soundConfig: soundDetails[] = data;
+interface AudioState {
+  references: HTMLAudioElement[];
+  current: HTMLAudioElement | undefined;
+}
 
-async function renderButtons(soundConfig: soundDetails[]) {
+const soundConfig: SoundDetails[] = data;
+
+// Event Handlers
+function onSoundButtonClick(audioState: AudioState, sound: SoundDetails) {
+  const isStacking: boolean =
+    document?.querySelector<HTMLInputElement>("input#stack")?.checked ?? false;
+
+  if (!isStacking && audioState.current) {
+    audioState.current.pause();
+    audioState.current.currentTime = 0;
+  }
+
+  const newAudio = new Audio(sound.fileName);
+  newAudio.play();
+  audioState.current = newAudio;
+  audioState.references.push(newAudio);
+}
+
+async function onStopButtonClick(audioState: AudioState) {
+  const isStacking: boolean =
+    document?.querySelector<HTMLInputElement>("input#stack")?.checked ?? false;
+  if (isStacking && audioState.current) {
+    for (const ref of audioState.references) {
+      ref.pause();
+      ref.currentTime = 0;
+      ref.removeAttribute("src");
+      ref.load();
+    }
+    audioState.references = [];
+  } else if (audioState.current) {
+    audioState.current.pause();
+    audioState.current.currentTime = 0;
+    audioState.current.removeAttribute("src");
+    audioState.current.load();
+  }
+  audioState.current = undefined;
+}
+
+// Render function
+async function renderButtons(soundConfig: SoundDetails[]) {
   const buttonGrid = document.querySelector("#button-grid");
-  let currentAudio: undefined | HTMLAudioElement;
+  const audioState: AudioState = {
+    references: [],
+    current: undefined,
+  };
 
   for (const sound of soundConfig) {
     const li = document.createElement("li");
@@ -17,16 +62,15 @@ async function renderButtons(soundConfig: soundDetails[]) {
     button.className = "default";
     button.textContent = sound.displayName;
     button.addEventListener("click", () => {
-      if (currentAudio) {
-        // stop audio when a new button is clicked
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
-      currentAudio = new Audio(sound.fileName);
-      currentAudio.play();
+      onSoundButtonClick(audioState, sound);
     });
     li.appendChild(button);
     buttonGrid?.appendChild(li);
   }
+
+  const stopButton = document.querySelector("button#stop");
+  stopButton?.addEventListener("click", () => {
+    onStopButtonClick(audioState);
+  });
 }
 renderButtons(soundConfig);

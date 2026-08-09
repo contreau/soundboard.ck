@@ -29,6 +29,10 @@
         box-sizing: border-box;
       }
 
+      html {
+        touch-action: manipulation;
+      }
+
       html,
       body {
         margin: 0;
@@ -76,13 +80,11 @@
 
         button {
           min-width: 120px;
-          cursor: pointer;
         }
 
         button#stop {
           min-width: fit-content;
           display: block;
-          cursor: pointer;
           svg {
             vertical-align: -1.5px;
           }
@@ -108,10 +110,6 @@
         vertical-align: -3px;
       }
 
-      label[for="stack"] {
-        cursor: pointer;
-      }
-
       .config {
         display: flex;
         align-items: center;
@@ -123,6 +121,14 @@
 
       div.field-border-disabled {
         padding: 1em;
+      }
+
+      @media (hover) {
+        button,
+        button#stop,
+        label[for="stack"] {
+          cursor: pointer;
+        }
       }
 
       @media (max-width: 300px) {

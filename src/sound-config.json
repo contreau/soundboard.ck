@@ -36,12 +36,20 @@
     "displayName": "Lego Yoda"
   },
   {
+    "fileName": "sounds/metal-pipe.mp3",
+    "displayName": "Metal Pipe"
+  },
+  {
     "fileName": "sounds/scooby-laugh.mp3",
     "displayName": "Scooby"
   },
   {
     "fileName": "sounds/slide-whistle.mp3",
     "displayName": "Slide Whistle"
+  },
+  {
+    "fileName": "sounds/snore.mp3",
+    "displayName": "Snore"
   },
   {
     "fileName": "sounds/tiptoe.mp3",

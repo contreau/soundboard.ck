@@ -207,11 +207,13 @@
     </main>
     <script>
       const unlockBTN = document.querySelector("#unlock-sounds");
-      unlockBTN.addEventListener("pointerdown", (e) => {
+      unlockBTN.addEventListener("click", (e) => {
         e.preventDefault();
         const hiddenSounds = document.querySelector("div.mobile-hidden");
         hiddenSounds.classList.remove(["mobile-hidden"]);
         unlockBTN.remove();
+        const newAudio = new Audio("sounds/lego-yoda.mp3");
+        newAudio.play();
       });
     </script>
   </body>

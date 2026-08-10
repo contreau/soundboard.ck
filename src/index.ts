@@ -61,7 +61,8 @@ async function renderButtons(soundConfig: SoundDetails[]) {
     const button = document.createElement("button");
     button.className = "default";
     button.textContent = sound.displayName;
-    button.addEventListener("click", () => {
+    button.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
       onSoundButtonClick(audioState, sound);
     });
     li.appendChild(button);
@@ -69,8 +70,11 @@ async function renderButtons(soundConfig: SoundDetails[]) {
   }
 
   const stopButton = document.querySelector("button#stop");
-  stopButton?.addEventListener("click", () => {
+  stopButton?.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
     onStopButtonClick(audioState);
   });
 }
 renderButtons(soundConfig);
+
+// todo: In order for pointerdown to be trusted by browser, on mobile have an initial reveal button to open the soundboard - needs to satisfy an initial tap by the user in order not to error

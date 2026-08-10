@@ -60,6 +60,10 @@
         touch-action: manipulation;
       }
 
+      button#unlock-sounds {
+        display: none;
+      }
+
       div.window-body {
         max-width: fit-content;
         margin-inline: auto;
@@ -151,9 +155,21 @@
           background-size: 100%;
         }
       }
+
+      @media (max-width: 1200px) {
+        .mobile-hidden {
+          display: none;
+        }
+
+        button#unlock-sounds {
+          display: block;
+          margin-inline: auto;
+          margin-block: 1rem;
+        }
+      }
     </style>
 
-    <script type="module" crossorigin src="/soundboard.ck/assets/index-F8YiUmW0.js"></script>
+    <script type="module" crossorigin src="/soundboard.ck/assets/index-C5KEEXVW.js"></script>
   </head>
   <body>
     <main>
@@ -168,7 +184,8 @@
             Soundboard.CK
           </div>
         </div>
-        <div class="window-body">
+        <button id="unlock-sounds">Reveal Sounds</button>
+        <div class="window-body mobile-hidden">
           <ul id="button-grid">
             <li>
               <div class="field-border-disabled">
@@ -188,5 +205,14 @@
         </div>
       </div>
     </main>
+    <script>
+      const unlockBTN = document.querySelector("#unlock-sounds");
+      unlockBTN.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        const hiddenSounds = document.querySelector("div.mobile-hidden");
+        hiddenSounds.classList.remove(["mobile-hidden"]);
+        unlockBTN.remove();
+      });
+    </script>
   </body>
 </html>

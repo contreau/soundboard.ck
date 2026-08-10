@@ -206,14 +206,16 @@
       </div>
     </main>
     <script>
+      const revealAudio = new Audio("sounds/lego-yoda.mp3");
+      revealAudio.preload = "auto";
+      console.log(revealAudio);
       const unlockBTN = document.querySelector("#unlock-sounds");
       unlockBTN.addEventListener("click", (e) => {
         e.preventDefault();
         const hiddenSounds = document.querySelector("div.mobile-hidden");
         hiddenSounds.classList.remove(["mobile-hidden"]);
         unlockBTN.remove();
-        const newAudio = new Audio("sounds/lego-yoda.mp3");
-        newAudio.play();
+        revealAudio.play();
       });
     </script>
   </body>

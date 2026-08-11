@@ -68,7 +68,11 @@
         color: #000;
       }
 
-      button#unlock-sounds {
+      p#ringer-message {
+        font-size: 12.5px;
+      }
+
+      div#unlock-container {
         display: none;
       }
 
@@ -169,6 +173,10 @@
           display: none;
         }
 
+        div#unlock-container {
+          display: block;
+        }
+
         button#unlock-sounds {
           display: block;
           margin-inline: auto;
@@ -177,7 +185,7 @@
       }
     </style>
 
-    <script type="module" crossorigin src="/soundboard.ck/assets/index-BLBlwSSS.js"></script>
+    <script type="module" crossorigin src="/soundboard.ck/assets/index-DdYfICvJ.js"></script>
   </head>
   <body>
     <main>
@@ -192,7 +200,12 @@
             Soundboard.CK
           </div>
         </div>
-        <button id="unlock-sounds">Reveal Sounds</button>
+        <div id="unlock-container">
+          <p style="text-align: center" id="ringer-message">
+            <strong>**</strong> Turn Ringer On <strong>**</strong>
+          </p>
+          <button id="unlock-sounds">Reveal Sounds</button>
+        </div>
         <div class="window-body mobile-hidden">
           <ul id="button-grid">
             <li>

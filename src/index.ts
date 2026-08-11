@@ -6,11 +6,83 @@ interface SoundDetails {
 }
 
 interface AudioState {
-  references: HTMLAudioElement[];
-  current: HTMLAudioElement | undefined;
+  references: AudioBufferSourceNode[];
+  current: AudioBufferSourceNode | undefined;
 }
 
+// Mobile Preload
+
+(async () => {
+  if (window.getComputedStyle(document.querySelector("#unlock-sounds")!)["display"] === "none") {
+    return; // Script doesn't run on desktop
+  }
+  // Create Audio Context and preload reveal sound
+  const audioCtx = new AudioContext();
+  async function getRevealAudio(audioContext: AudioContext) {
+    const file = await fetch("sounds/lego-yoda.mp3");
+    const buffer = await file.arrayBuffer();
+    const audioBuffer = await audioContext.decodeAudioData(buffer);
+    return audioBuffer;
+  }
+  const audioBuffer = await getRevealAudio(audioCtx);
+
+  // Configures click handler
+  const unlockBTN = document.querySelector("#unlock-sounds")!;
+  unlockBTN.addEventListener("click", async (e) => {
+    if (audioCtx.state === "suspended") await audioCtx.resume();
+    const sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.start();
+    // Reveal Soundboard
+    const hiddenSounds = document.querySelector("div.mobile-hidden")!;
+    hiddenSounds.classList.remove("mobile-hidden");
+    unlockBTN.remove();
+    // Cleanup
+    sourceNode.onended = async () => {
+      await audioCtx.close();
+    };
+  });
+})();
+
+// Rest of the Preload / Interaction Behavior
+
 const soundConfig: SoundDetails[] = data;
+
+const audioCtx = new AudioContext();
+const bufferCache = new Map<string, AudioBuffer>();
+let audioUnlocked = false;
+
+// Preloading
+async function preloadSounds(sounds: SoundDetails[]): Promise<void> {
+  await Promise.all(
+    sounds.map(async (sound) => {
+      const res = await fetch(sound.fileName);
+      const arrayBuffer = await res.arrayBuffer();
+      const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+      bufferCache.set(sound.fileName, audioBuffer);
+    }),
+  );
+}
+
+function createSource(fileName: string): AudioBufferSourceNode | undefined {
+  const buffer = bufferCache.get(fileName);
+  if (!buffer) return undefined;
+
+  const source = audioCtx.createBufferSource();
+  source.buffer = buffer;
+  source.connect(audioCtx.destination);
+  return source;
+}
+
+// Unlock audio context on first trusted gesture so pointerdown works after
+function unlockAudioContext() {
+  if (audioUnlocked) return;
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+  audioUnlocked = true;
+}
 
 // Event Handlers
 function onSoundButtonClick(audioState: AudioState, sound: SoundDetails) {
@@ -18,32 +90,35 @@ function onSoundButtonClick(audioState: AudioState, sound: SoundDetails) {
     document?.querySelector<HTMLInputElement>("input#stack")?.checked ?? false;
 
   if (!isStacking && audioState.current) {
-    audioState.current.pause();
-    audioState.current.currentTime = 0;
+    audioState.current.stop();
   }
 
-  const newAudio = new Audio(sound.fileName);
-  newAudio.play();
-  audioState.current = newAudio;
-  audioState.references.push(newAudio);
+  const newSource = createSource(sound.fileName);
+  if (!newSource) return;
+
+  newSource.onended = () => {
+    audioState.references = audioState.references.filter((r) => r !== newSource);
+    if (audioState.current === newSource) {
+      audioState.current = undefined;
+    }
+  };
+
+  newSource.start(0);
+  audioState.current = newSource;
+  audioState.references.push(newSource);
 }
 
-async function onStopButtonClick(audioState: AudioState) {
+function onStopButtonClick(audioState: AudioState) {
   const isStacking: boolean =
     document?.querySelector<HTMLInputElement>("input#stack")?.checked ?? false;
-  if (isStacking && audioState.current) {
+
+  if (isStacking) {
     for (const ref of audioState.references) {
-      ref.pause();
-      ref.currentTime = 0;
-      ref.removeAttribute("src");
-      ref.load();
+      ref.stop();
     }
     audioState.references = [];
   } else if (audioState.current) {
-    audioState.current.pause();
-    audioState.current.currentTime = 0;
-    audioState.current.removeAttribute("src");
-    audioState.current.load();
+    audioState.current.stop();
   }
   audioState.current = undefined;
 }
@@ -61,6 +136,7 @@ async function renderButtons(soundConfig: SoundDetails[]) {
     const button = document.createElement("button");
     button.className = "default";
     button.textContent = sound.displayName;
+    button.disabled = true; // enabled once preload resolves
     button.addEventListener("pointerdown", (e) => {
       e.preventDefault();
       onSoundButtonClick(audioState, sound);
@@ -74,7 +150,16 @@ async function renderButtons(soundConfig: SoundDetails[]) {
     e.preventDefault();
     onStopButtonClick(audioState);
   });
-}
-renderButtons(soundConfig);
 
-// todo: In order for pointerdown to be trusted by browser, on mobile have an initial reveal button to open the soundboard - needs to satisfy an initial tap by the user in order not to error
+  await preloadSounds(soundConfig);
+  buttonGrid
+    ?.querySelectorAll<HTMLButtonElement>("button")
+    .forEach((btn) => (btn.disabled = false));
+}
+
+// Unlock listeners — fire once on whatever the user's first trusted interaction is
+document.addEventListener("touchstart", unlockAudioContext, { once: true });
+document.addEventListener("click", unlockAudioContext, { once: true });
+document.addEventListener("pointerdown", unlockAudioContext, { once: true });
+
+renderButtons(soundConfig);

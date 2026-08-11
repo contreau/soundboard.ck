@@ -27,8 +27,9 @@ interface AudioState {
   const audioBuffer = await getRevealAudio(audioCtx);
 
   // Configures click handler
+  const unlockContainer = document.querySelector("div#unlock-container")!;
   const unlockBTN = document.querySelector("#unlock-sounds")!;
-  unlockBTN.addEventListener("click", async (e) => {
+  unlockBTN.addEventListener("click", async () => {
     if (audioCtx.state === "suspended") await audioCtx.resume();
     const sourceNode = audioCtx.createBufferSource();
     sourceNode.buffer = audioBuffer;
@@ -37,7 +38,7 @@ interface AudioState {
     // Reveal Soundboard
     const hiddenSounds = document.querySelector("div.mobile-hidden")!;
     hiddenSounds.classList.remove("mobile-hidden");
-    unlockBTN.remove();
+    unlockContainer.remove();
     // Cleanup
     sourceNode.onended = async () => {
       await audioCtx.close();
@@ -97,6 +98,7 @@ function onSoundButtonClick(audioState: AudioState, sound: SoundDetails) {
   if (!newSource) return;
 
   newSource.onended = () => {
+    newSource.disconnect();
     audioState.references = audioState.references.filter((r) => r !== newSource);
     if (audioState.current === newSource) {
       audioState.current = undefined;

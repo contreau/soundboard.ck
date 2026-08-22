@@ -8,6 +8,10 @@
     "displayName": "Charge"
   },
   {
+    "fileName": "sounds/chicken-scream.mp3",
+    "displayName": "Chicken Scream"
+  },
+  {
     "fileName": "sounds/clown-horn.mp3",
     "displayName": "Clown Horn"
   },
@@ -22,6 +26,10 @@
   {
     "fileName": "sounds/fried-rice.mp3",
     "displayName": "Fried Rice"
+  },
+  {
+    "fileName": "sounds/goofy-ahh-car.mp3",
+    "displayName": "Goofy Ahh Car Horn"
   },
   {
     "fileName": "sounds/cucaracha.mp3",

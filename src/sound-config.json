@@ -1,5 +1,13 @@
 [
   {
+    "fileName": "sounds/bark-fart.mp3",
+    "displayName": "Bark Fart"
+  },
+  {
+    "fileName": "sounds/horns.mp3",
+    "displayName": "Big Band Horns"
+  },
+  {
     "fileName": "sounds/bruh.mp3",
     "displayName": "Bruh"
   },
